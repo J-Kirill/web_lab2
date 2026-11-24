@@ -1,0 +1,18 @@
+#layout {
+    width: 1200px;
+    margin: 0 auto;
+    background-color: #9ba4af;
+}
+
+#header {
+    font-family: fantasy;
+    color: #291111;
+    font-size: 24px;
+    text-align: center;
+    background-color: #4b5a6d;
+    padding: 16px;
+}
+
+#graph {
+    background-color: white;
+}

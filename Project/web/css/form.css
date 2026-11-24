@@ -1,0 +1,55 @@
+#form-table td:first-child {
+    font-weight: bold;
+    width: 40px;
+}
+
+input[type="text"] {
+    padding: 6px 10px;         
+    margin: 4px 0;
+    width: 120px;
+    border: 1px solid #888;
+}
+
+input[type="radio"] {
+    margin: 0 4px 0 10px;
+}
+input[type="radio"]:checked {
+    accent-color: green;
+}
+
+button[type="submit"] {
+    padding: 8px 20px;
+    margin-top: 8px;
+    background-color: #2d7ff9;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#error {
+    color: #c0392b;
+    margin: 10px;
+    min-height: 20px;
+}
+
+.x-btn {
+    padding: 6px 10px;
+    margin: 2px;
+    border: 1px solid #888;
+    background-color: white;
+    cursor: pointer;
+}
+
+input[type="text"]:focus {
+    outline: 2px solid green;
+}
+
+.x-btn:hover,
+button[type="submit"]:hover {
+    background-color: #2ba549;
+}
+
+.x-btn.selected {
+    background-color: green;
+    color: white;
+}
