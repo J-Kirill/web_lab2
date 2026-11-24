@@ -8,7 +8,7 @@ import java.util.*;
 
 public class Main {
     private static final List<String> history = new ArrayList<>();
-    private static final Path FILE = Path.of("/home/studs/s502630/2nd_year/web/lab2/data/history.jsonl");
+    private static final Path FILE = Path.of("/home/studs/s502630/httpd-root/history.jsonl");
     private static final String EPOCH = Long.toString(System.currentTimeMillis());
     private static final int LIMIT = 128;
 
