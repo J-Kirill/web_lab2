@@ -34,8 +34,10 @@ xButtons.forEach(function (btn) {
 
 function parseDecimal(str) {
     const clean = str.trim().replace(',', '.');
-    return /^-?\d+(\.\d+)?$/.test(clean) ? Number(clean) : null;
+    const regex = /^(?!-0(\.0+)?$)-?(0|[1-9]\d*)(\.\d+)?$/;
+    return regex.test(clean) ? Number(clean) : null;
 }
+
  
 function validateX(xStr) {
     if (xStr === null) return { error: 'Выберите X' };
@@ -297,13 +299,14 @@ window.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem(keyR)) {
         rInput.value = localStorage.getItem(keyR);
     }
-    if (localStorage.getItem(keyX)) {
-        selectedX = localStorage.getItem(keyX);
-        xButtons.forEach(function(b){
+    const savedX = localStorage.getItem(keyX);
+    if (savedX !== null) {
+        selectedX = savedX;
+        xButtons.forEach(function(b) {
             if (b.value === selectedX) {
-                btn.classList.add('selected');
+                b.classList.add('selected');
             }
-        })
+        });
     }
 });
  
