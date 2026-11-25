@@ -15,6 +15,10 @@ const canvas   = document.getElementById('graph');
 const ctx      = canvas.getContext('2d');
 const xButtons = document.querySelectorAll('.x-btn');
  
+let key       = "Lab2-key"
+let keyX      = key + "-Stored-X"
+let keyY      = key + "-Stored-Y"
+let keyR      = key + "-Stored-R"
 let selectedX = null;
 let records   = [];                         // показанные записи, от старых к новым
 let state     = { epoch: null, version: 0 }; // что клиент знает о состоянии сервера
@@ -24,6 +28,7 @@ xButtons.forEach(function (btn) {
         selectedX = btn.value;
         xButtons.forEach(b => b.classList.remove('selected'));
         btn.classList.add('selected');
+        localStorage.setItem(keyX, selectedX)
     });
 });
 
@@ -192,8 +197,15 @@ function drawGraph(r) {
 function redraw() {
     drawGraph(currentR());
 }
- 
-rInput.addEventListener('input', redraw);
+
+yInput.addEventListener('input', function(){
+    localStorage.setItem(keyY, yInput.value)
+});
+
+rInput.addEventListener('input', function(){
+    redraw
+    localStorage.setItem(keyR, rInput.value)
+});
  
 
 function applySnapshot(data) {
@@ -278,6 +290,22 @@ form.addEventListener('submit', async function (event) {
     }
 });
 
+window.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem(keyY)) {
+        yInput.value = localStorage.getItem(keyY);
+    }
+    if (localStorage.getItem(keyR)) {
+        rInput.value = localStorage.getItem(keyR);
+    }
+    if (localStorage.getItem(keyX)) {
+        selectedX = localStorage.getItem(keyX);
+        xButtons.forEach(function(b){
+            if (b.value === selectedX) {
+                btn.classList.add('selected');
+            }
+        })
+    }
+});
  
 redraw();
 pollOnce();
