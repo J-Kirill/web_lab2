@@ -22,6 +22,7 @@ let keyR      = key + "-Stored-R"
 let selectedX = null;
 let records   = [];                         // показанные записи, от старых к новым
 let state     = { epoch: null, version: 0 }; // что клиент знает о состоянии сервера
+let etag      = null
 
 xButtons.forEach(function (btn) {
     btn.addEventListener('click', function () {
@@ -215,13 +216,27 @@ function applySnapshot(data) {
     state = { epoch: data.epoch, version: data.version };
     renderAll(data.records);
 }
- 
+
 async function refreshHistory() {
-    // cache: 'no-cache' — браузер сам отправит If-None-Match; при 304 вернёт сохранённое тело
-    const response = await fetch(API_URL + '?action=history', { cache: 'no-cache' });
-    if (!response.ok) throw new Error('HTTP ' + response.status);
+    const headers = {};
+    if (etag) {
+        headers['If-None-Match'] = etag;
+    }
+    const response = await fetch(API_URL + '?action=history', {
+        cache: 'no-store',
+        headers: headers
+    });
+    if (response.status === 304) {
+        return; 
+    }
+    if (!response.ok) {
+        throw new Error('HTTP ' + response.status);
+    }
+    etag = response.headers.get('ETag');
+
     applySnapshot(await response.json());
 }
+
 
 let inFlight  = false;
 let failures  = 0;
