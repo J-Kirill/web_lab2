@@ -89,7 +89,7 @@ public class Main {
     }
 
     private static void send(int code, String text, String cache, String etag, String body) {
-        StringBuilder head = new StringBuilder("Status: " + code + " " + text + "\r\n");
+        StringBuilder head = new StringBuilder("HTTP/1.1 " + code + " " + text + "\r\n");
         head.append("Cache-Control: ").append(cache).append("\r\n");
         if (etag != null) head.append("ETag: ").append(etag).append("\r\n");
         byte[] bytes = null;
